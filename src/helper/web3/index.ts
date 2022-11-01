@@ -3,22 +3,24 @@ import { Web3Provider } from '@ethersproject/providers';
 import { formatUnits } from '@ethersproject/units';
 import networks from "../../config/networks.json";
 const defaultNetwork: any = 1;
-let lock: I_INSTANCE, web3: Web3Provider, options;
+let lock: I_INSTANCE, options;
 let state: {
     account: string;
     network: Record<string, any>;
     walletConnectType: string | null;
+    provider: Web3Provider;
 } = {
     account: '',
     network: networks[defaultNetwork],
-    walletConnectType: null
+    walletConnectType: null,
+    provider: null
 }
 async function login(connector: 'injected' | 'walletconnect' | 'walletlink' = 'injected'): Promise<void> {
     return new Promise(async (resolve, reject) => {
         try {
             await lock.login(connector);
             if (lock.provider) {
-                web3 = new Web3Provider(lock.provider, 'any');
+                state.provider = new Web3Provider(lock.provider, 'any');
                 await loadProvider();
             };
         } catch (e) {
@@ -59,15 +61,15 @@ async function loadProvider() {
         let network, accounts;
         try {
             [network, accounts] = await Promise.all([
-                web3.getNetwork(),
-                web3.listAccounts()
+                state.provider.getNetwork(),
+                state.provider.listAccounts()
             ]);
             if (network.chainId != options.chainId) {
                 await lock.provider.request({
                     method: 'wallet_switchEthereumChain',
                     params: [{ chainId: `0x${options.chainId}` }]
                 });
-                network = web3.getNetwork();
+                network = state.provider.getNetwork();
             }
         } catch (e) {
             console.log(e);
@@ -105,10 +107,12 @@ const _export = {
     logout,
     getAccount: () => state.account,
     getNetwork: () => state.network,
+    getProvider: () => state.provider,
+    getIsLoggedIn: () => lock.getIsLoggedIn(),
 }
 export default function init(_options) {
     lock = Lock();
     options = _options;
-    if(options.web3stateReactive) state = options.web3stateReactive(state);
+    if (options.web3stateReactive) state = options.web3stateReactive(state);
     return _export;
 }

@@ -8,7 +8,8 @@ export interface I_INSTANCE {
     lockClient?: Lock,
     login: (string) => any,
     logout: () => void,
-    getConnector: any
+    getConnector: any,
+    getIsLoggedIn: () => Promise<boolean>
 }
 
 let instance: I_INSTANCE = {
@@ -16,7 +17,7 @@ let instance: I_INSTANCE = {
     provider: undefined,
     lockClient: null,
     async login(connector) {
-        const lockConnector: Connector = instance.lockClient.getConnector(connector);
+        const lockConnector: Connector = this.lockClient.getConnector(connector);
         const localProvider = await lockConnector.connect();
         if (localProvider !== null) {
             instance.provider = localProvider;
@@ -33,19 +34,23 @@ let instance: I_INSTANCE = {
             const lockConnector = instance.lockClient.getConnector(connector);
             await lockConnector.logout();
             localStorage.removeItem(`_${name}.connector`);
-            instance.isAuthenticated = false;
-            instance.provider = null;
+            this.isAuthenticated = false;
+            this.provider = null;
         }
     },
     async getConnector() {
         const connector = localStorage.getItem(`_${name}.connector`);
         if (connector) {
-            const lockConnector = instance.lockClient.getConnector(connector);
+            const lockConnector = this.lockClient.getConnector(connector);
             const isLoggedIn = await lockConnector.isLoggedIn();
             return isLoggedIn ? connector : false;
         }
         return false;
+    },
+    async getIsLoggedIn() {
+        return this.isAuthenticated;
     }
+
 };
 
 const useLock = ({ ...options }) => {

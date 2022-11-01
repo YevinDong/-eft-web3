@@ -1,9 +1,8 @@
 import "./helper/fix"
-import web3 from "./helper/web3/index"
-import { I_OPTIONS } from "./index.d"
-export default function init(options: I_OPTIONS) {
-    return {
-        web3: web3(options)
-    }
+import Web3 from "./helper/web3/index"
+import Contract from "./helper/contract/index"
+export default {
+    Web3,
+    Contract
 }
 
