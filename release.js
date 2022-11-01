@@ -30,7 +30,7 @@ inquirer
   ])
   .then((answer) => {
     if(exec(`npm version ${answer.selected}`).code !== 0) return
-    if(exec(`npm publish`).code !== 0) return
+    if(exec(`npm publish --registry https://registry.npmjs.org`).code !== 0) return
     console.log(symbols.success, chalk.green(`版本更新为${require('./package.json').version}`));
     // exec('npm publish')
   });
