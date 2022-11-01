@@ -1,6 +1,6 @@
 {
   "name": "@eft/web3",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "web3 utils ",
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
@@ -16,7 +16,6 @@
     "typecript": "^0.0.1-security",
     "@snapshot-labs/lock": "^0.1.1010"
   },
-  
   "author": "",
   "license": "ISC"
 }
