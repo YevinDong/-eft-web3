@@ -1,17 +1,22 @@
 {
   "name": "@eft/web3",
-  "version": "1.1.0",
+  "version": "0.0.1",
   "description": "web3 utils ",
-  "main": "index.js",
+  "module": "lib/index.js",
+  "jsnext:main": "lib/index.js",
   "scripts": {
+    "build": "tsc",
     "release": "node release.js"
   },
   "devDependencies": {
     "chalk": "^4.1.0",
     "inquirer": "^7.3.3",
     "log-symbols": "^4.0.0",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "typecript": "^0.0.1-security",
+    "@snapshot-labs/lock": "^0.1.1010"
   },
+  
   "author": "",
   "license": "ISC"
 }

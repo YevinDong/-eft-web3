@@ -1,0 +1,31 @@
+{
+  "injected": {
+    "id": "injected",
+    "name": "MetaMask",
+    "desc": "Connect to your Meta Mask wallet"
+  },
+  "walletconnect": {
+    "id": "walletconnect",
+    "name": "WalletConnect",
+    "desc": "Scan with WalletConnect to connect",
+    "network": "1",
+    "options": {
+      "rpc": {
+        "1": "https://mainnet.infura.io/v3/d4585ebbad464175a84a395512722d93",
+        "5": "https://goerli.infura.io/v3/d4585ebbad464175a84a395512722d93"
+      }
+    }
+  },
+  "walletlink": {
+    "id": "walletlink",
+    "name": "coinbase",
+    "desc": "Scan with Coinbase to connect",
+    "network": "1",
+    "options": {
+      "appName": "Snapshot",
+      "darkMode": false,
+      "chainId": 1,
+      "ethJsonrpcUrl": "https://mainnet.infura.io/v3/d4585ebbad464175a84a395512722d93"
+    }
+  }
+}
