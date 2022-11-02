@@ -14,20 +14,23 @@ export default class Contract {
         this.contract = new ethers.Contract(contractAddress, abi, provider);
     }
 
-    static wkMap = new WeakMap();
+    static _wkMap = new WeakMap();
     static useContract(name, contractAddress, account, provider, abi): Promise<Contract> {
         return new Promise((resolve, reject) => {
             try {
                 let res;
-                if (this.wkMap.get(name)) {
-                    res = this.wkMap.get(name);
+                if (this._wkMap.get(name)) {
+                    res = this._wkMap.get(name);
                 } else {
-                    this.wkMap.set(name, res = new Contract(contractAddress, account, provider, abi));
+                    this._wkMap.set(name, res = new Contract(contractAddress, account, provider, abi));
                 }
                 resolve(res);
             } catch (e) {
                 reject(e);
             }
         });
+    }
+    static setContractCache(name, contract) {
+        this._wkMap.set(name, contract);
     }
 }
