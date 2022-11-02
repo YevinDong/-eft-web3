@@ -11,6 +11,11 @@
   "dependencies": {
     "@snapshot-labs/lock": "^0.1.1010"
   },
+  "files": [
+    "lib",
+    "README.md",
+    "package.json"
+  ],
   "devDependencies": {
     "chalk": "^4.1.0",
     "inquirer": "^7.3.3",
