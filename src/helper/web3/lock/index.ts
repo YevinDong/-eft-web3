@@ -8,7 +8,7 @@ export interface I_INSTANCE {
     lockClient?: Lock,
     login: (string) => any,
     logout: () => void,
-    getConnector: any,
+    getConnectorName: () => Promise<any>,
     getIsLoggedIn: () => Promise<boolean>
 }
 
@@ -29,7 +29,7 @@ let instance: I_INSTANCE = {
         return instance.provider;
     },
     async logout() {
-        const connector = await instance.getConnector();
+        const connector = await instance.getConnectorName();
         if (connector) {
             const lockConnector = instance.lockClient.getConnector(connector);
             await lockConnector.logout();
@@ -38,7 +38,7 @@ let instance: I_INSTANCE = {
             this.provider = null;
         }
     },
-    async getConnector() {
+    async getConnectorName() {
         const connector = localStorage.getItem(`_${name}.connector`);
         if (connector) {
             const lockConnector = this.lockClient.getConnector(connector);

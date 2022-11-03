@@ -1,6 +1,6 @@
 {
   "name": "eft-web3",
-  "version": "0.2.0",
+  "version": "0.1.11",
   "description": "web3 utils ",
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
@@ -9,15 +9,20 @@
     "release": "node release.js"
   },
   "dependencies": {
-    "@snapshot-labs/lock": "^0.1.1010"
+    "@snapshot-labs/lock": "^0.1.1010",
+    "@snapshot-labs/snapshot.js": "^0.4.47"
   },
+  "files": [
+    "lib",
+    "README.md",
+    "package.json"
+  ],
   "devDependencies": {
     "chalk": "^4.1.0",
     "inquirer": "^7.3.3",
     "log-symbols": "^4.0.0",
     "shelljs": "^0.8.4",
-    "typecript": "^0.0.1-security",
-    "@snapshot-labs/lock": "^0.1.1010"
+    "typecript": "^0.0.1-security"
   },
   "author": "",
   "license": "ISC"
