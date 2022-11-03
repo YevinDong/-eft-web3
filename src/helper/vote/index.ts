@@ -62,4 +62,10 @@ export default class Vote {
             ).then(scores => resolve(scores)).catch(err => reject(err));
         })
     }
+    public getClicent() {
+        return this.client;
+    }
+    public getSnapshot() {
+        return snapshot;
+    }
 }
