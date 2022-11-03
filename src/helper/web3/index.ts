@@ -1,5 +1,6 @@
 import Lock, { type I_INSTANCE } from "./lock"
 import { Web3Provider } from '@ethersproject/providers';
+import { getInjected } from '@snapshot-labs/lock/src/utils';
 import { formatUnits } from '@ethersproject/units';
 import networks from "../../config/networks.json";
 const defaultNetwork: any = 1;
@@ -143,8 +144,10 @@ const _export = {
     getAccount: () => state.account,
     getNetwork: () => state.network,
     getProvider: () => state.provider,
-    getIsLoggedIn: () => lock.getIsLoggedIn(),
     getIsinited: () => state.inited,
+    getIsLoggedIn: () => lock.getIsLoggedIn(),
+    getConnectorName: () => lock.getConnectorName(),
+    getInjected,
     init
 }
 export default _export; 
