@@ -128,7 +128,7 @@ function emit(eventNames: T_EVENT_NAME | T_EVENT_NAME[], ...args) {
         bucket.has(name) && bucket.get(name).forEach(fn => fn(...args));
     }
 }
-function init(_options: T_OPTIONS) {
+function init(_options: T_OPTIONS): I_EXPORT {
     state.inited = true;
     lock = Lock();
     options = _options;
@@ -139,7 +139,22 @@ function init(_options: T_OPTIONS) {
     emit('init');
     return _export;
 }
-const _export = {
+interface I_EXPORT {
+    state: typeof state;
+    login: typeof login;
+    logout: typeof logout;
+    on: typeof on;
+    off: typeof off;
+    init: typeof init;
+    getAccount: () => string;
+    getNetwork: () => Record<string, any>;
+    getProvider: () => Web3Provider;
+    getIsinited: () => boolean;
+    getIsLoggedIn: () => Promise<boolean>;
+    getConnectorName: () => Promise<string>;
+    getInjected: () => any;
+}
+const _export: I_EXPORT = {
     state,
     login,
     logout,
