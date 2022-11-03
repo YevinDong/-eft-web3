@@ -139,7 +139,7 @@ function init(_options: T_OPTIONS): I_EXPORT {
     emit('init');
     return _export;
 }
-interface I_EXPORT {
+export interface I_EXPORT {
     state: typeof state;
     login: typeof login;
     logout: typeof logout;
