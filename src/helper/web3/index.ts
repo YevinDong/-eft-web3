@@ -5,7 +5,8 @@ import { formatUnits } from '@ethersproject/units';
 import networks from "../../config/networks.json";
 const defaultNetwork: any = 1;
 type T_EVENT_NAME = 'login' | 'init' | 'logout' | 'networkChanged' | 'accountChanged' | 'chainChanged';
-let lock: I_INSTANCE, options: { chainId: number | string, web3stateReactive?: <T>(arg: T) => T };
+type T_OPTIONS = { chainId: number | string, web3stateReactive?: <T>(arg: T) => T };
+let lock: I_INSTANCE, options: T_OPTIONS;
 let state: {
     inited: boolean;
     account: string;
@@ -127,11 +128,14 @@ function emit(eventNames: T_EVENT_NAME | T_EVENT_NAME[], ...args) {
         bucket.has(name) && bucket.get(name).forEach(fn => fn(...args));
     }
 }
-function init(_options) {
+function init(_options: T_OPTIONS) {
     state.inited = true;
     lock = Lock();
     options = _options;
-    if (options.web3stateReactive) state = options.web3stateReactive(state);
+    if (options.web3stateReactive) {
+        state = options.web3stateReactive(state);
+        _export.state = state;
+    };
     emit('init');
     return _export;
 }
