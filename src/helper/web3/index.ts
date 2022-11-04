@@ -3,17 +3,39 @@ import { Web3Provider } from '@ethersproject/providers';
 import { getInjected } from '@snapshot-labs/lock/src/utils';
 import { formatUnits } from '@ethersproject/units';
 import networks from "../../config/networks.json";
-const defaultNetwork: any = 1;
-type T_EVENT_NAME = 'login' | 'init' | 'logout' | 'networkChanged' | 'accountChanged' | 'chainChanged';
-type T_OPTIONS = { chainId: number | string, web3stateReactive?: <T>(arg: T) => T };
-let lock: I_INSTANCE, options: T_OPTIONS;
-let state: {
+
+export type T_EVENT_NAME = 'login' | 'init' | 'logout' | 'networkChanged' | 'accountChanged' | 'chainChanged';
+export type T_CONNERCTOR = 'injected' | 'walletconnect' | 'walletlink';
+export type T_OPTIONS = { chainId: number | string, web3stateReactive?: <T>(arg: T) => T };
+export interface I_STATE {
     inited: boolean;
     account: string;
     network: Record<string, any>;
     walletConnectType: string | null;
     provider: Web3Provider;
-} = {
+}
+export interface I_EXPORT {
+    state: typeof state;
+    login: typeof login;
+    logout: typeof logout;
+    on: typeof on;
+    off: typeof off;
+    init: typeof init;
+    getAccount: () => string;
+    getNetwork: () => Record<string, any>;
+    getProvider: () => Web3Provider;
+    getIsinited: () => boolean;
+    getIsLoggedIn: () => Promise<boolean>;
+    getConnectorName: () => Promise<T_CONNERCTOR>;
+    getInjected: () => any;
+}
+
+
+
+
+let lock: I_INSTANCE, options: T_OPTIONS;
+const defaultNetwork: any = 1;
+let state: I_STATE = {
     inited: false,
     account: '',
     network: networks[defaultNetwork],
@@ -21,7 +43,7 @@ let state: {
     provider: null
 }
 let bucket = new Map();
-async function login(connector: 'injected' | 'walletconnect' | 'walletlink' = 'injected'): Promise<void> {
+async function login(connector: T_CONNERCTOR = 'injected'): Promise<void> {
     if (!state.inited) return Promise.reject('Please call init first');
     return new Promise(async (resolve, reject) => {
         try {
@@ -38,7 +60,6 @@ async function login(connector: 'injected' | 'walletconnect' | 'walletlink' = 'i
         }
     });
 }
-
 function logout() {
     if (!state.inited) return Promise.reject('Please call init first');
     lock.logout();
@@ -112,7 +133,6 @@ function handleChainChanged(chainId) {
     }
     state.network = networks[chainId];
 }
-
 function on(eventName: T_EVENT_NAME, fn: () => any) {
     bucket.has(eventName) || bucket.set(eventName, new Set());
     bucket.get(eventName).add(fn);
@@ -138,21 +158,6 @@ function init(_options: T_OPTIONS): I_EXPORT {
     };
     emit('init');
     return _export;
-}
-export interface I_EXPORT {
-    state: typeof state;
-    login: typeof login;
-    logout: typeof logout;
-    on: typeof on;
-    off: typeof off;
-    init: typeof init;
-    getAccount: () => string;
-    getNetwork: () => Record<string, any>;
-    getProvider: () => Web3Provider;
-    getIsinited: () => boolean;
-    getIsLoggedIn: () => Promise<boolean>;
-    getConnectorName: () => Promise<string>;
-    getInjected: () => any;
 }
 const _export: I_EXPORT = {
     state,
