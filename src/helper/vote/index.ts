@@ -1,5 +1,5 @@
 import snapshot from '@snapshot-labs/snapshot.js';
-import Client from '@snapshot-labs/snapshot.js/dist/sign/index';
+import Client from '@snapshot-labs/snapshot.js/dist/client';
 import { getScores } from "@snapshot-labs/snapshot.js/dist/utils";
 import { Vote as TypeVote } from '@snapshot-labs/snapshot.js/dist/sign/types';
 let clients = new Map();
@@ -18,7 +18,7 @@ export default class Vote {
     }
 
 
-    async castVote(provider, account, options: TypeVote) {
+    async castVote(provider, account, space, options: { proposal: any, choice: any }) {
         // {
         //     space: 'yam.eth',
         //     proposal: '0x21ea31e896ec5b5a49a3653e51e787ee834aaf953263144ab936ed756f36609f',
@@ -28,7 +28,7 @@ export default class Vote {
         //     app: 'my-app'
         // }
         return new Promise((resolve, reject) => {
-            this.client.vote(provider, account, options).then(receipt => {
+            this.client.vote(provider, account, space, options).then(receipt => {
                 resolve(receipt)
             }).catch(err => reject(err))
         })
