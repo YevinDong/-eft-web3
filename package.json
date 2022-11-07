@@ -1,6 +1,6 @@
 {
   "name": "eft-web3",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "web3 utils ",
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
