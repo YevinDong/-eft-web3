@@ -1,11 +1,11 @@
 {
   "name": "eft-web3",
-  "version": "0.2.0",
+  "version": "0.1.18",
   "description": "web3 utils ",
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --version && tsc",
     "release": "node release.js"
   },
   "types": "./lib/index.d.ts",
