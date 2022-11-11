@@ -11,7 +11,7 @@ export interface I_INSTANCE {
     getConnectorName: () => Promise<any>,
     getIsLoggedIn: () => Promise<boolean>
 }
-
+const name = 'lock';
 let instance: I_INSTANCE = {
     isAuthenticated: false,
     provider: undefined,

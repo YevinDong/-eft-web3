@@ -12,7 +12,9 @@
     "options": {
       "rpc": {
         "1": "https://mainnet.infura.io/v3/d4585ebbad464175a84a395512722d93",
-        "5": "https://goerli.infura.io/v3/d4585ebbad464175a84a395512722d93"
+        "5": "https://goerli.infura.io/v3/d4585ebbad464175a84a395512722d93",
+        "56": "https://bsc-dataseed2.binance.org",
+        "97": "https://bsctestapi.terminet.io/rpc"
       }
     }
   },
