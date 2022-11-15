@@ -98,18 +98,17 @@ async function loadProvider() {
                 state.provider.getNetwork(),
                 state.provider.listAccounts()
             ]);
-            if (network.chainId != options.chainId) {
-                await lock.provider.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: Number(options.chainId).toString(16) }]
-                });
-                network = state.provider.getNetwork();
-                emit('networkChanged');
-            }
+            // if (network.chainId != options.chainId) {
+            //     await lock.provider.request({
+            //         method: 'wallet_switchEthereumChain',
+            //         params: [{ chainId: Number(options.chainId).toString(16) }]
+            //     });
+            //     network = await state.provider.getNetwork();
+            //     emit('networkChanged');
+            // }
         } catch (e) {
             console.log(e);
         }
-
         console.log('Network', network);
         console.log('Accounts', accounts);
 
@@ -166,7 +165,7 @@ async function changeChain(chainId) {
     if (lock.provider?.request) {
         await lock.provider.request({
             method: 'wallet_switchEthereumChain',
-            params: [{ chainId: Number(chainId).toString(16) }]
+            params: [{ chainId: `0x${Number(chainId).toString(16)}` }]
         });
         handleChainChanged(chainId);
         return true;
