@@ -28,6 +28,7 @@ export interface I_EXPORT {
     getIsLoggedIn: () => Promise<boolean>;
     getConnectorName: () => Promise<T_CONNERCTOR>;
     getInjected: () => any;
+    changeChain: (chainId: number | string) => Promise<Boolean>
 }
 
 
@@ -83,7 +84,8 @@ async function loadProvider() {
                 if (accounts.length !== 0) {
                     state.account = accounts[0];
                     emit('accountChanged', accounts[0]);
-                    await login();
+                    let connectorName = lock.getConnectorName();
+                    await login(connectorName as any);
                 }
             });
             lock.provider.on('disconnect', async () => { });
@@ -99,7 +101,7 @@ async function loadProvider() {
             if (network.chainId != options.chainId) {
                 await lock.provider.request({
                     method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: `0x${options.chainId}` }]
+                    params: [{ chainId: Number(options.chainId).toString(16) }]
                 });
                 network = state.provider.getNetwork();
                 emit('networkChanged');
@@ -159,6 +161,18 @@ function init(_options: T_OPTIONS): I_EXPORT {
     emit('init');
     return _export;
 }
+
+async function changeChain(chainId) {
+    if (lock.provider?.request) {
+        await lock.provider.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: Number(chainId).toString(16) }]
+        });
+        handleChainChanged(chainId);
+        return true;
+    } else return false;
+}
+
 const _export: I_EXPORT = {
     state,
     login,
@@ -172,6 +186,7 @@ const _export: I_EXPORT = {
     getIsLoggedIn: () => lock.getIsLoggedIn(),
     getConnectorName: () => lock.getConnectorName(),
     getInjected,
+    changeChain,
     init
 }
 export default _export; 
