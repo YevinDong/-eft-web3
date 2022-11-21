@@ -2,12 +2,16 @@ import "./helper/fix"
 import _Web3 from "./helper/web3/index"
 import _Contract from "./helper/contract/index"
 import _Vote from "./helper/vote/index"
-export let Web3 = _Web3;
-export let Contract = _Contract;
-export let Vote = _Vote;
+import _BigNumber from "./helper/bignumber/index"
 
+export const Web3 = _Web3;
+export const Contract = _Contract;
+export const Vote = _Vote;
+export const BigNumber = _BigNumber;
+console.log('eft-web3');
 export default {
     Web3,
     Contract,
-    Vote
+    Vote,
+    BigNumber
 }

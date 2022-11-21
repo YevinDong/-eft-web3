@@ -1,6 +1,30 @@
 # web3 tools
 
-# web3 
+## install
+
+```bash
+npm install eft-web3
+
+# or
+
+yarn add eft-web3
+```
+
+## use
+
+```js
+import eft_web3 from 'eft-web3';
+const {Web3 , Vote } = eft_web3;
+```
+
+| Export Module |  quick Link   |
+| :-----------: | :-----------: |
+|     Web3      | [Jump](#web3) |
+|     Vote      | [Jump](#vote) |
+|   Bignumber   | [Jump](#web3) |
+
+## web3
+
 ```javascript
     // init
     import {Web3} from "eft-web3";
@@ -37,3 +61,9 @@
     web.on('login' | 'init' | 'logout' | 'networkChanged' | 'accountChanged' | 'chainChanged',hookFn)
     web.off('login' | 'init' | 'logout' | 'networkChanged' | 'accountChanged' | 'chainChanged',hookFn)
 ```
+
+## Vote
+
+## BigNumber
+
+> BigNumber is a shortcut to the "@ethersproject/bignumber" file and does not rework the original library
