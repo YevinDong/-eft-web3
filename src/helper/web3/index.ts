@@ -84,7 +84,7 @@ async function loadProvider() {
                 if (accounts.length !== 0) {
                     state.account = accounts[0];
                     emit('accountChanged', accounts[0]);
-                    let connectorName = lock.getConnectorName();
+                    let connectorName = await lock.getConnectorName();
                     await login(connectorName as any);
                 }
             });
