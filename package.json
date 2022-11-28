@@ -2,16 +2,22 @@
   "name": "eft-web3",
   "version": "0.1.22",
   "description": "web3 utils ",
-  "module": "lib/index.js",
-  "jsnext:main": "lib/index.js",
+  "module": "lib/src/index.js",
+  "jsnext:main": "lib/src/index.js",
   "scripts": {
-    "build": "tsc --version && tsc",
+    "clear": "node ./commands/clear.js",
+    "build": "npm run clear && tsc --version && tsc && node ./commands/cp.js",
+    "build:pack": "npm run build && npm pack",
     "release": "node release.js"
   },
-  "types": "./lib/index.d.ts",
+  "types": "./lib/src/index.d.ts",
   "dependencies": {
+    "@ethersproject/providers": "^5.7.2",
+    "@ethersproject/units": "^5.7.0",
+    "@ethersproject/wallet": "^5.7.0",
     "@snapshot-labs/lock": "^0.1.1010",
-    "@snapshot-labs/snapshot.js": "^0.4.47"
+    "@snapshot-labs/snapshot.js": "^0.4.47",
+    "typescript-plugin-css-modules": "^3.4.0"
   },
   "files": [
     "lib",
@@ -22,7 +28,7 @@
     "chalk": "^4.1.0",
     "inquirer": "^7.3.3",
     "log-symbols": "^4.0.0",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.5"
   },
   "author": "",
   "license": "ISC"

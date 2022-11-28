@@ -14,6 +14,14 @@ export function shorten(str: string, key?: number | 'symbol' | 'name' | 'choice'
     return shortenAddress(str);
 }
 
+export function loadStyle(url){
+    let el = document.createElement("link");
+    el.type = "text/css";
+    el.rel = "stylesheet";
+    el.href = url;
+    document.head.appendChild(el);
+}
+
 export default {
     shortenAddress,
     shorten

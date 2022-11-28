@@ -1,0 +1,13 @@
+@media screen and (max-width: 750px) {
+    .walletconnect-modal__footer {
+        overflow: hidden;
+        overflow-x: scroll;
+        display: flex;
+        justify-content: flex-start !important;
+        padding-bottom: 5px;
+    }
+
+    .walletconnect-connect__buttons__wrapper {
+        font-size: 5vw;
+    }
+}
