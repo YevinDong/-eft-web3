@@ -5,10 +5,10 @@
   "module": "lib/src/index.js",
   "jsnext:main": "lib/src/index.js",
   "scripts": {
-    "clear": "node ./commands/clear.js",
-    "build": "npm run clear && tsc --version && tsc && node ./commands/cp.js",
+    "clear": "node commands/clear.js",
+    "build": "npm run clear && tsc --version && tsc && node commands/cp.js",
     "build:pack": "npm run build && npm pack",
-    "release": "node release.js"
+    "release": "node commands/release.js"
   },
   "types": "./lib/src/index.d.ts",
   "dependencies": {
